@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SportLoto.Models;
+using SportLoto.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
