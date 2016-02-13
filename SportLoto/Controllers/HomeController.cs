@@ -8,8 +8,10 @@ using System.Web.Mvc;
 
 namespace SportLoto.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : ApplicationController
     {
+        public HomeController() : base() { }
+
         public ActionResult Index()
         {
             return View();

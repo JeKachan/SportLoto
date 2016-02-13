@@ -11,12 +11,12 @@ using SportLoto.Models;
 namespace SportLoto.Controllers
 {
     [Authorize]
-    public class ManageController : Controller
+    public class ManageController : ApplicationController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
-        public ManageController()
+        public ManageController() : base()
         {
         }
 

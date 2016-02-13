@@ -1,0 +1,1 @@
+﻿var ticketApp = angular.module("ticketApp", []);

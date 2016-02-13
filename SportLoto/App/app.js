@@ -1,0 +1,1 @@
+﻿var lotoApp = angular.module("lotoApp", []);
