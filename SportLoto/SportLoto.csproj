@@ -205,13 +205,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602112042155_AddDrawingTicketTables.cs" />
-    <Compile Include="Migrations\201602112042155_AddDrawingTicketTables.Designer.cs">
-      <DependentUpon>201602112042155_AddDrawingTicketTables.cs</DependentUpon>
+    <Compile Include="Migrations\201602141203320_Init.cs" />
+    <Compile Include="Migrations\201602141203320_Init.Designer.cs">
+      <DependentUpon>201602141203320_Init.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602141226562_ToNullableBirthdayApplicationUser.cs" />
+    <Compile Include="Migrations\201602141226562_ToNullableBirthdayApplicationUser.Designer.cs">
+      <DependentUpon>201602141226562_ToNullableBirthdayApplicationUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="DbModels\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationDbContext.cs" />
@@ -220,6 +224,10 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\Ticket\app.js" />
+    <Content Include="App\Ticket\controllers\TicketController.js" />
+    <Content Include="App\Ticket\directives\slTicket.html" />
+    <Content Include="App\Ticket\directives\slTicket.js" />
+    <Content Include="App\Ticket\services\ticketFactory.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -1022,6 +1030,10 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\lodash.core.js" />
+    <Content Include="Scripts\lodash.core.min.js" />
+    <Content Include="Scripts\lodash.js" />
+    <Content Include="Scripts\lodash.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
@@ -1064,9 +1076,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Ticket\Index.cshtml" />
+    <Content Include="Views\Ticket\CreateTicket.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Ticket\controllers\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
@@ -1078,8 +1090,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201602112042155_AddDrawingTicketTables.resx">
-      <DependentUpon>201602112042155_AddDrawingTicketTables.cs</DependentUpon>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201602141203320_Init.resx">
+      <DependentUpon>201602141203320_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602141226562_ToNullableBirthdayApplicationUser.resx">
+      <DependentUpon>201602141226562_ToNullableBirthdayApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,0 +1,10 @@
+﻿<div class="ticket clearfix">
+    <div class="ticket-section clearfix" ng-repeat="section in ticket">
+        <div class="ticket-cell"
+             ng-repeat="cell in section"
+             ng-class="{'cell-select': cell.isSelect}"
+             ng-click="toogleSelect(cell, section)"> 
+            {{cell.value}}
+        </div>
+    </div>
+</div>

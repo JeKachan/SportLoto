@@ -12,6 +12,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using SportLoto.Models;
 using SportLoto.Repositories;
+using SportLoto.DbModels;
 
 namespace SportLoto
 {

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "CreateTicket";
+}
+@section scripts {
+    <script src="~/Scripts/angular.min.js"></script>
+    <script src="~/App/Ticket/app.js"></script>
+    <script src="~/App/Ticket/services/ticketFactory.js"></script>
+    <script src="~/App/Ticket/controllers/TicketController.js"></script>
+    <script src="~/App/Ticket/directives/slTicket.js"></script>
+}
+
+<div ng-app="ticketApp" ng-controller="TicketController" ng-cloak class="ticket-view">
+    <h2>CreateTicket</h2>
+    <a href="#" class="btn btn-info" ng-click="randomTicket()">Generate random ticket</a>
+    <a href="#" class="btn btn-danger" ng-click="resetTicketSelect()">Reset</a>
+    <sl-ticket ticket="ticket"></sl-ticket>
+    <span class="alert alert-warning"
+          ng-show="!ticketIsValid()">Please select 6 num in each section.</span>
+    <a href="#"
+       class="btn btn-success"
+       ng-click="applyTicket()"
+       ng-show="ticketIsValid()">Apply the ticket</a>
+</div>
+

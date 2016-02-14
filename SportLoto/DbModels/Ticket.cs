@@ -4,11 +4,6 @@ using System.ComponentModel.DataAnnotations;
 
 namespace SportLoto.DbModels
 {
-    //ID int primary key identity(1,1),
-    //TicketNo nvarchar(30),
-    //TicketDate datetime,
-    //UserID int,
-    //DrawingID int
     public class Ticket
     {
         [Key]

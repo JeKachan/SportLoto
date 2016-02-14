@@ -20,6 +20,9 @@ namespace SportLoto.Repositories
         {
             return new ApplicationDbContext();
         }
-       
+
+        public DbSet<Ticket> Tickets { get; set; }
+        public DbSet<Drawing> Drawings { get; set; }
+
     }
 }
