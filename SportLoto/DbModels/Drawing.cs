@@ -22,8 +22,7 @@ namespace SportLoto.DbModels
         [Required]
         public DateTime CreateDate { get; set; }
 
-        [Required]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
 
         public virtual ICollection<Ticket> Tickets { get; set; }
     }

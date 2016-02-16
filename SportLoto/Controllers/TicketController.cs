@@ -2,6 +2,7 @@
 using SportLoto.DbModels;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -16,13 +17,14 @@ namespace SportLoto.Controllers
             return View();
         }
 
-        public ActionResult CreateTicket()
+        [HttpGet]
+        public async Task<ActionResult> CreateTicket()
         {
             return View();
         }
 
         [HttpPost]
-        public JsonResult CreateTicket(string ticketJson)
+        public async Task<JsonResult> CreateTicket(string ticketJson)
         {
             var js = new JavaScriptSerializer();
             var ticket = js.Deserialize<List<List<int>>>(ticketJson);
@@ -33,8 +35,7 @@ namespace SportLoto.Controllers
                 DrawingId = 1,
                 ApplicationUserId = User?.Identity.GetUserId(),
             };
-            db.Tickets.Add(newTicket);
-            //db.SaveChanges();
+            //bool result = await db.CreateTicketAsync(newTicket);
             return Json(new { });
         }
     }

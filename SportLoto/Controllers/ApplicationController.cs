@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using SportLoto.DbModels;
 using SportLoto.Repositories;
 using System;
@@ -10,14 +11,13 @@ namespace SportLoto.Controllers
 {
     public class ApplicationController : Controller
     {
-        protected ApplicationDbContext db;
-        protected ApplicationUser currentUser;
         private bool disposedValue = false; // To detect redundant calls
-
+        protected SqlRepository db { get; set; }
+        protected ApplicationUser currentUser { get; set; }
 
         public ApplicationController()
         {
-            db = new ApplicationDbContext();
+            db = new SqlRepository();
            
         }
 
