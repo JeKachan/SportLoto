@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using System.Web.Script.Serialization;
 
 namespace SportLotoService
 {
@@ -13,11 +14,10 @@ namespace SportLotoService
     {
         Random RandomNo = new Random();
 
-
         //SQL Connection
         public SqlConnection OpenSqlConnection()
         {
-            SqlConnection conn = new SqlConnection("data source=.\\HOMESQL;Initial Catalog=SportLoto;Integrated Security=True; User Id=sa;Password=12345;");
+            SqlConnection conn = new SqlConnection("Server=.\\HOMESQL;Database=SportLoto;User Id=sa;Password=12345;");
             return conn;
         }
 
@@ -26,24 +26,22 @@ namespace SportLotoService
         //insert Drawing
         public int SqlNewInsert()
         {
-            SqlCommand getCommand = new SqlCommand("Insert into Drawing Values(@WinNo,@CreateDate,@EndDate)", OpenSqlConnection());
+            SqlCommand getCommand = new SqlCommand("Insert into Drawings Values(@WinNo,@CreateDate,@EndDate)", OpenSqlConnection());
             getCommand.Parameters.AddWithValue("@WinNo", "0");
-            getCommand.Parameters.AddWithValue("@CreateDate", DateTime.Today.Date);
+            getCommand.Parameters.AddWithValue("@CreateDate", DateTime.Today);
             getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today.AddDays(7));
 
             int ExecutedLines = 0;
             try
             {
                 if (OpenSqlConnection().State == ConnectionState.Closed)
-                    OpenSqlConnection().Open();
+                    getCommand.Connection.Open();
                 ExecutedLines = getCommand.ExecuteNonQuery();
             }
             catch (Exception)
             {
-
                 throw;
             }
-            OpenSqlConnection().Close();
             return ExecutedLines;
         }
 
@@ -58,14 +56,13 @@ namespace SportLotoService
             try
             {
                 if (OpenSqlConnection().State == ConnectionState.Closed)
-                    OpenSqlConnection().Open();
+                    getCommand.Connection.Open();
                 ExecutedLines = getCommand.ExecuteNonQuery();
             }
             catch (Exception)
             {
                 throw;
             }
-            OpenSqlConnection().Close();
             return ExecutedLines;
         }
 
@@ -74,36 +71,38 @@ namespace SportLotoService
         //Generate Random Number
         public string GenRandom()
         {
-            string WinNumber = "";
-
+            var winNoLst = new List<int>();
             for (int i = 0; i < 6; i++)
             {
                 System.Threading.Thread.Sleep(5000);
                 int randomNumber = RandomNo.Next(0, 46);
-                WinNumber = randomNumber + ",";
+                winNoLst.Add(randomNumber);
             }
-            WinNumber = WinNumber.Remove(WinNumber.Length - 1);
-            return WinNumber;
 
+            return new JavaScriptSerializer().Serialize(winNoLst);
         }
 
 
         //DateChecker - Update and insert data automatically when the day comes
         public void DateChecker()
         {
-            SqlCommand getCommand = new SqlCommand("SELECT * from Drawings WHERE EndDate=@EndDate", OpenSqlConnection());
-            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today.Date);
+            SqlCommand getCommand = new SqlCommand("SELECT * from Drawings WHERE EndDate=@EndDate and WinNo='0'", OpenSqlConnection());
+            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
             SqlDataReader rd = null;
             try
             {
                 if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
-                    OpenSqlConnection().Open();
+                    getCommand.Connection.Open();
                 rd = getCommand.ExecuteReader();
 
                 if (rd.HasRows)
                 {
-                    SqlNewUpdate();
-                    SqlNewInsert();
+                    while (rd.Read())
+                    {
+                        SqlNewUpdate();
+                        SqlNewInsert();
+                    }
+
                 }
 
             }
@@ -111,7 +110,7 @@ namespace SportLotoService
             {
                 throw;
             }
-            OpenSqlConnection().Close();
+
 
         }
 
@@ -122,12 +121,15 @@ namespace SportLotoService
             try
             {
                 if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
-                    OpenSqlConnection().Open();
+                    getCommand.Connection.Open();
                 rd = getCommand.ExecuteReader();
 
                 if (!rd.HasRows)
                 {
+
                     SqlNewInsert();
+
+
                 }
 
             }
@@ -135,7 +137,7 @@ namespace SportLotoService
             {
                 throw;
             }
-            OpenSqlConnection().Close();
+
 
         }
     }

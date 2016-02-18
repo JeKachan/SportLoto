@@ -7,24 +7,27 @@ using System.Timers;
 
 namespace SportLotoService
 {
-    public class TimerCode : System.Timers.Timer
+    public class TimerCode : Timer
     {
-        SqlCode SqlCommand = new SqlCode();
-        TimerCode aTimer = new TimerCode();
+        private static Timer aTimer;
 
         public void StartTimer()
         {
-            
-            aTimer.Elapsed += new ElapsedEventHandler(TimeTick);
+            aTimer = new Timer();
+            aTimer.Elapsed += TimeTick;
             aTimer.Interval = 14400000;
+            aTimer.AutoReset = true;
             aTimer.Enabled = true;
             aTimer.Start();
 
         }
 
-        private void TimeTick(object sender, ElapsedEventArgs e)
+        private static void TimeTick(object sender, ElapsedEventArgs e)
         {
-            SqlCommand.DateChecker();
+            SqlCode Sql_Command = new SqlCode();
+
+            Sql_Command.DateChecker();
+
         }
 
         public void StopTimer()
