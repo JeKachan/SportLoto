@@ -17,5 +17,16 @@ namespace SportLoto.Repositories
             return await db.SaveChangesAsync() > 0;
         }
 
+        public async Task<Drawing> GetLastDrawingAsync()
+        {
+            return await db.Drawings.
+                OrderByDescending(x => x.CreateDate).
+                FirstOrDefaultAsync(x => !x.IsCompleted);
+        }
+
+        public Drawing GetLastDrawing()
+        {
+            return db.Drawings. OrderByDescending(x => x.CreateDate).FirstOrDefault(x => !x.IsCompleted);
+        }
     }
 }

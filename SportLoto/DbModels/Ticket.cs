@@ -1,6 +1,6 @@
-﻿using SportLoto.Models;
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SportLoto.DbModels
 {
@@ -9,7 +9,7 @@ namespace SportLoto.DbModels
         [Key]
         public int Id { get; set; }
 
-        [Required]
+        [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreateDate { get; set; }
 
         [MaxLength(300)]

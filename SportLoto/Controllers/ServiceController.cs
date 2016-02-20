@@ -18,7 +18,6 @@ namespace SportLoto.Controllers
             var random = new Random();
             var newDrawing = new Drawing
             {
-                CreateDate = DateTime.Now,
                 WinNo = new JavaScriptSerializer().Serialize(new int[]
                 {
                     random.Next(1, 46),
@@ -29,7 +28,7 @@ namespace SportLoto.Controllers
                     random.Next(1, 46)
                 })
             };
-            if (await db.CreateDrawingAsync(newDrawing))
+            if (await repository.CreateDrawingAsync(newDrawing))
             {
                 result = $"Drawing: id:{newDrawing.Id}, CreateDate: {newDrawing.CreateDate}, Win number:{newDrawing.WinNo}";
             };

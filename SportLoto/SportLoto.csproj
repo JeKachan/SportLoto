@@ -15,7 +15,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SportLoto</RootNamespace>
     <AssemblyName>SportLoto</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -79,16 +80,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -130,6 +129,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -218,10 +218,23 @@
     <Compile Include="Migrations\201602161956323_ToNullableEndDateDrawing.Designer.cs">
       <DependentUpon>201602161956323_ToNullableEndDateDrawing.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602200844355_AddIsCompletedToDrawingTable.cs" />
+    <Compile Include="Migrations\201602200844355_AddIsCompletedToDrawingTable.Designer.cs">
+      <DependentUpon>201602200844355_AddIsCompletedToDrawingTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201041473_SetDefaultValueCreateDateToTicketDrawingTables.cs" />
+    <Compile Include="Migrations\201602201041473_SetDefaultValueCreateDateToTicketDrawingTables.Designer.cs">
+      <DependentUpon>201602201041473_SetDefaultValueCreateDateToTicketDrawingTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.cs" />
+    <Compile Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.Designer.cs">
+      <DependentUpon>201602201105513_ChangesCreateDateToTicketDrawingTables.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="DbModels\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\TicketViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ApplicationDbContext.cs" />
     <Compile Include="Repositories\UserSql.cs" />
@@ -1087,6 +1100,7 @@
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\CreateTicket.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -1112,6 +1126,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602161956323_ToNullableEndDateDrawing.resx">
       <DependentUpon>201602161956323_ToNullableEndDateDrawing.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602200844355_AddIsCompletedToDrawingTable.resx">
+      <DependentUpon>201602200844355_AddIsCompletedToDrawingTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201041473_SetDefaultValueCreateDateToTicketDrawingTables.resx">
+      <DependentUpon>201602201041473_SetDefaultValueCreateDateToTicketDrawingTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.resx">
+      <DependentUpon>201602201105513_ChangesCreateDateToTicketDrawingTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -1,6 +1,7 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    font-family: Consolas;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -30,6 +31,17 @@ textarea {
     display:none;
 }
 
+.nav.navbar-nav li.selected {
+    background-color:white;
+}
+.nav.navbar-nav li.selected a {
+    color: black;
+}
+.navbar-brand.selected {
+    background-color:white;
+    color: black;
+}
+
 .ticket-view {
     
 }
@@ -39,9 +51,16 @@ textarea {
 }
 
 .ticket-section {
+    margin-top: 15px;
     width: 325px;
     margin-bottom: 20px;
     float:left;
+}
+
+.ticket-section .btn
+{
+    margin-left: 5px;
+    padding: 1px 12px;
 }
 
 .ticket-cell {
@@ -68,4 +87,23 @@ textarea {
     color: white;
     background-color:orangered;
     border-color:red;
+}
+
+.tickets .ticket {
+    width: 200px;
+    float: left;
+    margin-right: 30px;
+}
+
+.tickets .ticket .section {
+    border: 1px solid black;
+    border-radius: 4px;
+    margin-top: 5px;
+}
+
+.tickets .ticket .section span {
+    display:inline-block;
+    width:25px;
+    text-align: center;
+    font-size: 16px;
 }

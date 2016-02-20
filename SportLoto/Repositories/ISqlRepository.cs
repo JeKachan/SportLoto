@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SportLoto.Repositories
 {
-    interface ISqlRepository : IDisposable
+    public interface ISqlRepository : IDisposable
     {
 
         #region Ticket
@@ -21,6 +21,8 @@ namespace SportLoto.Repositories
 
         IQueryable<Drawing> Drawings { get; }
         Task<bool> CreateDrawingAsync(Drawing instance);
+        Task<Drawing> GetLastDrawingAsync();
+        Drawing GetLastDrawing();
 
         #endregion
 

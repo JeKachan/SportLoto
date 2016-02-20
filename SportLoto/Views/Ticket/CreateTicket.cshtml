@@ -1,4 +1,4 @@
-﻿
+﻿@model SportLoto.Models.CreateTicketViewModel
 @{
     ViewBag.Title = "CreateTicket";
 }
@@ -12,14 +12,37 @@
 
 <div ng-app="ticketApp" ng-controller="TicketController" ng-cloak class="ticket-view">
     <h2>CreateTicket</h2>
-    <a href="#" class="btn btn-info" ng-click="randomTicket()">Generate random ticket</a>
-    <a href="#" class="btn btn-danger" ng-click="resetTicketSelect()">Reset</a>
-    <sl-ticket ticket="ticket"></sl-ticket>
-    <span class="alert alert-warning"
-          ng-show="!ticketIsValid()">Please select 6 num in each section.</span>
-    <a href="#"
-       class="btn btn-success"
-       ng-click="applyTicket()"
-       ng-show="ticketIsValid()">Apply the ticket</a>
+    <a href="@Url.Action("Index", "Ticket")">To current active tickets</a><br>
+
+    @if (Model.Drawing != null)
+    {
+        <a href="#" class="btn btn-info" ng-click="randomTicket()">Generate random ticket</a>
+        <a href="#" class="btn btn-danger" ng-click="resetTicketSelect()">Reset all</a>
+        <span class="alert alert-warning"
+              ng-show="!ticketIsValid() && !showErrorMessage && !showSuccesMessage">
+            Please select 6 num in each section.
+        </span>
+        <span class="alert alert-danger" ng-show="showErrorMessage">
+            {{errorMessage}}
+        </span>
+        <span class="alert alert-success"
+              ng-show="showSuccesMessage">
+            Ticket was saved.
+        </span>
+
+
+        <sl-ticket ticket="ticket"></sl-ticket>
+
+
+        <a href="#"
+           class="btn btn-success"
+           ng-click="applyTicket()"
+           ng-show="ticketIsValid()">Apply the ticket</a>
+    }
+    else
+    {
+        <p>Sorry, but now you cant create new ticket</p>
+    }
+
 </div>
 

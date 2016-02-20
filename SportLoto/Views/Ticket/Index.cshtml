@@ -1,7 +1,34 @@
-﻿@{
+﻿@model SportLoto.Models.IndexTicketViewModel
+
+@{
     ViewBag.Title = "Index";
 }
 
 <h2>Ticket Page</h2>
 
 <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
+
+@if (Model.Tickets.Count > 0)
+{
+    <div class="tickets clearfix">
+        @for (var i = 0; i < Model.Tickets.Count; i++)
+        {
+            var ticket = Model.Tickets[i];
+            <div class="ticket">
+                <div class="ricket-description">
+                    Ticket #@(i + 1), <br>
+                    Created: @ticket.CreateDate.ToString("dd.MM.yyyy HH:mm")
+                </div>
+                @foreach (var section in Model.GetTicketNo(ticket))
+                {
+                    <div class="section">
+                        @foreach (var cell in section)
+                        {
+                            <span>@cell </span>
+                        }
+                    </div>
+                }
+            </div>
+        }
+    </div>
+}

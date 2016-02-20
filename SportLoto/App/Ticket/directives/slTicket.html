@@ -1,9 +1,22 @@
 ﻿<div class="ticket clearfix">
     <div class="ticket-section clearfix" ng-repeat="section in ticket">
+        <div class="clearfix">
+            Number: {{$index + 1}}
+            <button
+               ng-click="resetSection(section)"
+                class="btn btn-danger">
+                reset
+            </button>
+            <button
+               ng-click="setRandomCells(section)"
+               class="btn btn-info">
+                random
+            </button>
+        </div>
         <div class="ticket-cell"
              ng-repeat="cell in section"
              ng-class="{'cell-select': cell.isSelect}"
-             ng-click="toogleSelect(cell, section)"> 
+             ng-click="toggleSelect(cell, section)">
             {{cell.value}}
         </div>
     </div>
