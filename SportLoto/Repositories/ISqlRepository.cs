@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SportLoto.Repositories
@@ -14,6 +13,7 @@ namespace SportLoto.Repositories
 
         IQueryable<Ticket> Tickets { get; }
         Task<bool> CreateTicketAsync(Ticket instance);
+        Task<List<Ticket>> GetNotPayedTicketsAsync(string userId);
 
         #endregion
 
@@ -31,6 +31,11 @@ namespace SportLoto.Repositories
         IQueryable<ApplicationUser> Users { get; }
         Task<ApplicationUser> FindUserAsync(string id);
 
+        #endregion
+
+        #region Transaction
+        IQueryable<Transaction> Transactions { get; }
+        Task<bool> CreateTransactionAsync(Transaction instance);
         #endregion
     }
 }

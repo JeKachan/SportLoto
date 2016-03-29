@@ -38,6 +38,10 @@ namespace SportLoto.DbModels
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
+        public int DrawingId { get; set; }
+
+        public virtual Drawing Drawing { get; set; }
+
         [Required, DatabaseGenerated(DatabaseGeneratedOption.Computed)]
         public DateTime CreateDate { get; set; }
 

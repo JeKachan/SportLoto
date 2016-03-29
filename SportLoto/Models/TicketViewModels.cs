@@ -36,4 +36,24 @@ namespace SportLoto.Models
 
         public List<string> Errors { get; set; }
     }
+
+    public class SuccessViewModel
+    {
+        public int transaction_id { get; set; }
+
+        public string first_name { get; set; }
+
+        public string last_name { get; set; }
+
+        public string payment_status { get; set; }
+
+        public string payer_email { get; set; }
+
+        public decimal payment_gross { get; set; }
+
+        public string mc_currency { get; set; }
+
+        public string custom { get; set; }
+
+    }
 }

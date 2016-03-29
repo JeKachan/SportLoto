@@ -88,6 +88,9 @@ textarea {
     background-color:orangered;
     border-color:red;
 }
+.tickets {
+    margin-bottom: 15px;
+}
 
 .tickets .ticket {
     width: 200px;
