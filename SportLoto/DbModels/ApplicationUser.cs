@@ -24,6 +24,8 @@ namespace SportLoto.DbModels
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType

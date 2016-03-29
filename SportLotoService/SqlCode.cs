@@ -126,10 +126,7 @@ namespace SportLotoService
 
                 if (!rd.HasRows)
                 {
-
                     SqlNewInsert();
-
-
                 }
 
             }

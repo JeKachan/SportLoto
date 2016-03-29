@@ -23,8 +23,11 @@ namespace SportLoto.DbModels
 
         [Required]
         public string ApplicationUserId { get; set; }
-
         public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public int? TransactionId { get; set; }
+
+        public Transaction Transactions { get; set; }
 
     }
 }

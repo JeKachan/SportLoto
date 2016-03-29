@@ -1,6 +1,4 @@
 ﻿using SportLoto.DbModels;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,7 +24,8 @@ namespace SportLoto.Repositories
 
         public Drawing GetLastDrawing()
         {
-            return db.Drawings. OrderByDescending(x => x.CreateDate).FirstOrDefault(x => !x.IsCompleted);
+            return db.Drawings.OrderByDescending(x => x.CreateDate).FirstOrDefault(x => !x.IsCompleted);
+            
         }
     }
 }

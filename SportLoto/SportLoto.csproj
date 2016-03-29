@@ -203,6 +203,7 @@
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="DbModels\Drawing.cs" />
     <Compile Include="DbModels\Ticket.cs" />
+    <Compile Include="DbModels\Transaction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -229,6 +230,10 @@
     <Compile Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.cs" />
     <Compile Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.Designer.cs">
       <DependentUpon>201602201105513_ChangesCreateDateToTicketDrawingTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603291622109_AddTransaction.cs" />
+    <Compile Include="Migrations\201603291622109_AddTransaction.Designer.cs">
+      <DependentUpon>201603291622109_AddTransaction.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -1135,6 +1140,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602201105513_ChangesCreateDateToTicketDrawingTables.resx">
       <DependentUpon>201602201105513_ChangesCreateDateToTicketDrawingTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603291622109_AddTransaction.resx">
+      <DependentUpon>201603291622109_AddTransaction.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

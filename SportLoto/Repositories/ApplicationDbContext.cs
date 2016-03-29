@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using SportLoto.DbModels;
-using SportLoto.Models;
-using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Web;
 
 namespace SportLoto.Repositories
 {
@@ -23,6 +18,7 @@ namespace SportLoto.Repositories
 
         public DbSet<Ticket> Tickets { get; set; }
         public DbSet<Drawing> Drawings { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
     }
 }

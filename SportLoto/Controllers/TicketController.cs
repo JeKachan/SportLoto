@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
 using SportLoto.DbModels;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Web.Mvc;
