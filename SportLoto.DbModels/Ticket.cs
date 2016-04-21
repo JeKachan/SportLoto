@@ -17,7 +17,6 @@ namespace SportLoto.DbModels
         public string TicketNo { get; set; }
 
         public int? DrawingId { get; set; }
-
         public virtual Drawing Drawing { get; set; }
 
         [Required]

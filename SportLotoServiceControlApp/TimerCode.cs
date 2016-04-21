@@ -30,7 +30,7 @@ namespace SportLotoService
             Sql_Command.SqlNewUpdate();
 
             //Get winners of current session
-            Sql_Command.GetWiners();
+            Sql_Command.SetWiners();
 
             //Start New One
             Sql_Command.SqlNewInsert();

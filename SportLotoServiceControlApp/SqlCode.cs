@@ -167,72 +167,66 @@ namespace SportLotoService
 
         //Get Winners
         //NEED TO BE CHANGED!!
-        public void GetWiners()
+        public void SetWiners()
         {
-            SqlCommand getCommand = new SqlCommand("SELECT * from Drawings as D JOIN Tickets as T on D.Id = T.DrawingId where D.IsCompleted = '0' and D.WinNo = T.TicketNo ", OpenSqlConnection());
-            SqlDataReader rd = null;
-            WinnersData winner = new WinnersData();
-            try
-            {
-                if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
-                    getCommand.Connection.Open();
-                rd = getCommand.ExecuteReader();
-
-                if (rd.HasRows)
+            var drawing = db.Drawings.LastOrDefault(x => x.IsCompleted == false);
+            var winners = drawing.Tickets
+                .Where(x => MatchCount(x, drawing.WinNo) == 6)
+                .Select(x => new WinnersData
                 {
-                    while (rd.Read())
-                    {
-                        winner.WinnerUserID = rd["ApplicationUserId"].ToString();
-                        winner.WinnerDrawingID = Convert.ToInt32(rd["DrawingId"]);
-                        winner.WinnerTicketID = Convert.ToInt32(rd["TicketNo"]);
-                        winner.WinnerIsPayed = 0;
+                    ApplicationUserId = x.ApplicationUserId,
+                    TicketId = x.Id,
+                    DrawingId = drawing.Id
+                }).ToList();
 
-                        InsertWinners(winner);
-                    }
+            db.WinnersData.AddRange(winners);
+            db.SaveChanges();
+            DrawingsSessionClose();
+
+            //SqlCommand getCommand = new SqlCommand("SELECT T.ApplicationUserId, T.Id as TicketId, D.Id as DrawingId from Drawings as D JOIN Tickets as T on D.Id = T.DrawingId where D.IsCompleted = '0' and D.WinNo = T.TicketNo ", OpenSqlConnection());
+            //SqlDataReader rd = null;
+            //WinnersData winner = new WinnersData();
+            //try
+            //{
+            //    if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
+            //        getCommand.Connection.Open();
+            //    rd = getCommand.ExecuteReader();
+
+            //    if (rd.HasRows)
+            //    {
+            //        while (rd.Read())
+            //        {
+            //            winner.ApplicationUserId = rd["ApplicationUserId"].ToString();
+            //            winner.DrawingId = Convert.ToInt32(rd["DrawingId"]);
+            //            winner.TicketId = Convert.ToInt32(rd["TicketId"]);
+            //            winner.PaymentMade = false;
+
+            //            InsertWinners(winner);
+            //        }
+            //    }
+
+            //    DrawingsSessionClose();
+            //}
+            //catch (Exception)
+            //{
+            //    throw;
+            //}
+        }
+
+        public int MatchCount(Ticket ticket, string _winNo)
+        {
+            var js = new JavaScriptSerializer();
+            var winNo = js.Deserialize<List<int>>(_winNo);
+            var ticketNo = js.Deserialize<List<List<int>>>(ticket.TicketNo);
+            var count = 0;
+            for(var i = 0; i < winNo.Count; i++)
+            {
+                if (ticketNo[i].Contains(winNo[i]))
+                {
+                    count++;
                 }
-
-                DrawingsSessionClose();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
+            return count;
         }
-
-
-        //Insert Winners
-        public int InsertWinners(WinnersData _winner)
-        {
-            SqlCommand getCommand = new SqlCommand("Insert into WinnersData Values(@WinnerUserID,@WinnerDrawingID,@WinnerTicketID,@WinnerIsPayed)", OpenSqlConnection());
-            getCommand.Parameters.AddWithValue("@WinnerUserID", _winner.WinnerUserID);
-            getCommand.Parameters.AddWithValue("@WinnerDrawingID", _winner.WinnerDrawingID);
-            getCommand.Parameters.AddWithValue("@WinnerTicketID", _winner.WinnerTicketID);
-            getCommand.Parameters.AddWithValue("@WinnerIsPayed", _winner.WinnerIsPayed);
-
-            int ExecutedLines = 0;
-            try
-            {
-                if (OpenSqlConnection().State == ConnectionState.Closed)
-                    getCommand.Connection.Open();
-                ExecutedLines = getCommand.ExecuteNonQuery();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return ExecutedLines;
-        }
-
-
-        //Winner Data
-        public class WinnersData
-        {
-            public string WinnerUserID { get; set; }
-            public int WinnerDrawingID { get; set; }
-            public int WinnerTicketID { get; set; }
-            public byte WinnerIsPayed { get; set; }
-        }
-
     }
 }
