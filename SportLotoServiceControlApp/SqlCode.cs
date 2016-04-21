@@ -1,14 +1,24 @@
-﻿using System;
+﻿using SportLoto.DbModels;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Web.Script.Serialization;
 
 namespace SportLotoService
 {
     public class SqlCode
     {
+        ApplicationDbContext db;
         Random RandomNo = new Random();
+
+
+        public SqlCode()
+        {
+            db = new ApplicationDbContext();
+        }
+
 
         //SQL Connection
         public SqlConnection OpenSqlConnection()
@@ -16,7 +26,6 @@ namespace SportLotoService
             SqlConnection conn = new SqlConnection("Server=.\\HOMESQL;Database=SportLoto;User Id=sa;Password=12345;");
             return conn;
         }
-
 
 
         //insert Drawing
