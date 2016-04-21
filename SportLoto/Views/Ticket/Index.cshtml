@@ -1,12 +1,28 @@
 ﻿@model SportLoto.Models.IndexTicketViewModel
 
 @{
-    ViewBag.Title = "Index";
+    var action = ViewContext.RouteData.Values["action"].ToString();
+    if (action.ToLower() == "index")
+    {
+        ViewBag.Title = "Index";
+    }
+    else if (action.ToLower() == "purchasedtickets")
+    {
+        ViewBag.Title = "Purchased Tickets";
+    }
 }
 
 <h2>Ticket Page</h2>
 
-<a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
+@if (action.ToLower() == "index")
+{
+    <a href="@Url.Action("PurchasedTickets", "Ticket")" class="btn btn-default">Purchased tickets</a>
+}
+else if (action.ToLower() == "purchasedtickets")
+{
+    <a href="@Url.Action("Index", "Ticket")" class="btn btn-default">Not buyed tickets</a>
+}
+
 
 @if (Model.Tickets.Count > 0)
 {
@@ -32,5 +48,7 @@
         }
         <div class="clearfix"></div>
     </div>
-    <a href="@Url.Action("PayTicket", "Ticket")" class="btn btn-default">Pay tickets</a>
+    <a href="@Url.Action("PayTicket", "Ticket")" class="btn btn-success">Pay tickets</a>
+    <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
+
 }
