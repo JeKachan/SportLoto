@@ -249,7 +249,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\TicketViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\ApplicationDbContext.cs" />
+    <Compile Include="DbModels\ApplicationDbContext.cs" />
     <Compile Include="Repositories\TransactionSql.cs" />
     <Compile Include="Repositories\UserSql.cs" />
     <Compile Include="Repositories\DrawingSql.cs" />
@@ -1159,6 +1159,12 @@
     <EmbeddedResource Include="Migrations\201603291724501_AddDrawingIdToTransaction.resx">
       <DependentUpon>201603291724501_AddDrawingIdToTransaction.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SportLoto.DbModels\SportLoto.DbModels.csproj">
+      <Project>{bf1181fc-a627-4f64-b93b-caa0c7e01a6a}</Project>
+      <Name>SportLoto.DbModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

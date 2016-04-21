@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportLoto", "SportLoto\SportLoto.csproj", "{536C1CAB-7CEA-4914-80F5-D87A978C449C}"
 EndProject
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportLotoService", "SportLotoService\SportLotoService.csproj", "{A29BBD18-0A95-42DB-927C-C167BEBABD93}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportLotoServiceControlApp", "SportLotoServiceControlApp\SportLotoServiceControlApp.csproj", "{B98C858E-399E-494E-AEE5-A57D6682CF76}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SportLoto.DbModels", "SportLoto.DbModels\SportLoto.DbModels.csproj", "{BF1181FC-A627-4F64-B93B-CAA0C7E01A6A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{B98C858E-399E-494E-AEE5-A57D6682CF76}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B98C858E-399E-494E-AEE5-A57D6682CF76}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B98C858E-399E-494E-AEE5-A57D6682CF76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1181FC-A627-4F64-B93B-CAA0C7E01A6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1181FC-A627-4F64-B93B-CAA0C7E01A6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1181FC-A627-4F64-B93B-CAA0C7E01A6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1181FC-A627-4F64-B93B-CAA0C7E01A6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

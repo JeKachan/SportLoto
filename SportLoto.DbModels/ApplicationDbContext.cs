@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
-using SportLoto.DbModels;
 using System.Data.Entity;
 
-namespace SportLoto.Repositories
+namespace SportLoto.DbModels
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
