@@ -18,6 +18,9 @@
     {
         <a href="#" class="btn btn-info" ng-click="randomTicket()">Generate random ticket</a>
         <a href="#" class="btn btn-danger" ng-click="resetTicketSelect()">Reset all</a>
+        <a class="btn btn-success"
+           ng-click="applyTicket()"
+           ng-show="ticketIsValid()">Apply and create ticket</a>
         <span class="alert alert-warning"
               ng-show="!ticketIsValid() && !showErrorMessage && !showSuccesMessage">
             Please select 6 num in each section.
@@ -34,10 +37,9 @@
         <sl-ticket ticket="ticket"></sl-ticket>
 
 
-        <a href="#"
-           class="btn btn-success"
+        <a class="btn btn-success"
            ng-click="applyTicket()"
-           ng-show="ticketIsValid()">Apply the ticket</a>
+           ng-show="ticketIsValid()">Apply and create ticket</a>
     }
     else
     {

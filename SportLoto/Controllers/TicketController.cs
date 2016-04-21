@@ -8,6 +8,7 @@ using SportLoto.Models;
 using System.Web.Routing;
 using System.Linq;
 using System;
+using System.Web;
 
 namespace SportLoto.Controllers
 {
@@ -68,9 +69,28 @@ namespace SportLoto.Controllers
             return Json(resultJson);
         }
 
-        public ActionResult Success(SuccessViewModel model)
+        public async Task<ActionResult> Success(SuccessViewModel model)
         {
-            return Content("In development");
+            var param = HttpUtility.ParseQueryString(model.custom);
+            var ticketsId = param["ticketsId"].Split(',').Select(x => Int32.Parse(x)).ToList();
+            var transaction = await repository.GetTransactionByIdAsync(model.transaction_id);
+            if (transaction != null)
+            {
+                var tickets = await repository.GetTicketsByIdsAsync(ticketsId);
+                if (ticketsId.Count > 0)
+                {
+                    transaction.Confirmed = true;
+                    transaction.PaymentDate = DateTime.Now;
+
+                    tickets.ForEach(x => 
+                    {
+                        x.TransactionId = transaction.Id;
+                        x.DrawingId = transaction.DrawingId;
+                    });
+                    await repository.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("Index");
         }
 
         #region pay pal temp
@@ -101,11 +121,20 @@ namespace SportLoto.Controllers
                     payment_gross = transtaction.ItemTotal,
                     mc_currency = "USD",
                     custom = $"transactioId={transtaction.Id}&ticketsId={String.Join(",", tickets.Select(x => x.Id))}"
-
-                } );
+                });
             }
             return RedirectToAction("Index");
         }
         #endregion
+
+        public async Task<ActionResult> PurchasedTickets()
+        {
+            var model = new IndexTicketViewModel();
+            if (CurrentDrawing != null)
+            {
+                model.Tickets = await repository.GetTicketsByUserDrawingIdsAsync(CurrentUser.Id, CurrentDrawing.Id);
+            }
+            return View("Index", model);
+        }
     }
 }
