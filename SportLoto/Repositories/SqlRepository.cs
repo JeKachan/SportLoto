@@ -1,4 +1,6 @@
-﻿namespace SportLoto.Repositories
+﻿using System.Threading.Tasks;
+
+namespace SportLoto.Repositories
 {
     public partial class SqlRepository : ISqlRepository
     {
@@ -8,6 +10,8 @@
         {
             db = new ApplicationDbContext();
         }
+
+        public async Task<bool> SaveChangesAsync() => await db.SaveChangesAsync() > 0; 
 
         #region IDisposable Support
 

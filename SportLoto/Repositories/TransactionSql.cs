@@ -14,5 +14,8 @@ namespace SportLoto.Repositories
             return await db.SaveChangesAsync() > 0;
         }
 
+        public async Task<Transaction> GetTransactionByIdAsync(int id) =>
+            await db.Transactions.FindAsync(id);
+
     }
 }
