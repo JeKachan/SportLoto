@@ -10,6 +10,7 @@ namespace SportLotoService
     public class TimerCode : Timer
     {
         private static Timer aTimer;
+        SqlCode Sql_Command = new SqlCode();
 
         public void StartTimer(int _interval)
         {
@@ -22,9 +23,9 @@ namespace SportLotoService
 
         }
 
-        private static void TimeTick(object sender, ElapsedEventArgs e)
+        private void TimeTick(object sender, ElapsedEventArgs e)
         {
-            SqlCode Sql_Command = new SqlCode();
+            
 
             //Current Session Close
             Sql_Command.SqlNewUpdate();

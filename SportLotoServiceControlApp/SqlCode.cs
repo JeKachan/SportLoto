@@ -14,12 +14,6 @@ namespace SportLotoService
         Random RandomNo = new Random();
 
 
-        public SqlCode()
-        {
-            db = new ApplicationDbContext();
-        }
-
-
         //SQL Connection
         public SqlConnection OpenSqlConnection()
         {
@@ -31,10 +25,11 @@ namespace SportLotoService
         //insert Drawing
         public int SqlNewInsert()
         {
-            SqlCommand getCommand = new SqlCommand("Insert into Drawings Values(@WinNo,@CreateDate)", OpenSqlConnection());
+            SqlCommand getCommand = new SqlCommand("Insert into Drawings Values(@WinNo, @EndDate, @IsCompleated, @CreateDate)", OpenSqlConnection());
             getCommand.Parameters.AddWithValue("@WinNo", "0");
             getCommand.Parameters.AddWithValue("@CreateDate", DateTime.Today);
-           // getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today.AddDays(7));
+            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
+            getCommand.Parameters.AddWithValue("@IsCompleated", "0");
 
             int ExecutedLines = 0;
             try
@@ -43,7 +38,7 @@ namespace SportLotoService
                     getCommand.Connection.Open();
                 ExecutedLines = getCommand.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -75,8 +70,9 @@ namespace SportLotoService
         //Last Update For Driwings session
         public int DrawingsSessionClose()
         {
-            SqlCommand getCommand = new SqlCommand("UPDATE Drawings SET IsCompleted=@WinNo WHERE IsCompleted='0'", OpenSqlConnection());
+            SqlCommand getCommand = new SqlCommand("UPDATE Drawings SET IsCompleted=@IsCompleted, EndDate=@EndDate WHERE IsCompleted='0'", OpenSqlConnection());
             getCommand.Parameters.AddWithValue("@IsCompleted", 1);
+            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
 
             int ExecutedLines = 0;
             try
@@ -85,7 +81,7 @@ namespace SportLotoService
                     getCommand.Connection.Open();
                 ExecutedLines = getCommand.ExecuteNonQuery();
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 throw;
             }
@@ -100,7 +96,7 @@ namespace SportLotoService
             var winNoLst = new List<int>();
             for (int i = 0; i < 6; i++)
             {
-                System.Threading.Thread.Sleep(5000);
+                System.Threading.Thread.Sleep(1000);
                 int randomNumber = RandomNo.Next(0, 46);
                 winNoLst.Add(randomNumber);
             }
@@ -169,19 +165,22 @@ namespace SportLotoService
         //NEED TO BE CHANGED!!
         public void SetWiners()
         {
-            var drawing = db.Drawings.LastOrDefault(x => x.IsCompleted == false);
-            var winners = drawing.Tickets
-                .Where(x => MatchCount(x, drawing.WinNo) == 6)
-                .Select(x => new WinnersData
-                {
-                    ApplicationUserId = x.ApplicationUserId,
-                    TicketId = x.Id,
-                    DrawingId = drawing.Id
-                }).ToList();
+            using (db = new ApplicationDbContext())
+            {
+                var drawing = db.Drawings.Where(x => x.IsCompleted == false).FirstOrDefault();
+                var winners = drawing.Tickets
+                    .Where(x => MatchCount(x, drawing.WinNo) == 6)
+                    .Select(x => new WinnersData
+                    {
+                        ApplicationUserId = x.ApplicationUserId,
+                        TicketId = x.Id,
+                        DrawingId = drawing.Id
+                    }).ToList();
 
-            db.WinnersData.AddRange(winners);
-            db.SaveChanges();
-            DrawingsSessionClose();
+                db.WinnersData.AddRange(winners);
+                db.SaveChanges();
+                DrawingsSessionClose();
+            }
 
             //SqlCommand getCommand = new SqlCommand("SELECT T.ApplicationUserId, T.Id as TicketId, D.Id as DrawingId from Drawings as D JOIN Tickets as T on D.Id = T.DrawingId where D.IsCompleted = '0' and D.WinNo = T.TicketNo ", OpenSqlConnection());
             //SqlDataReader rd = null;

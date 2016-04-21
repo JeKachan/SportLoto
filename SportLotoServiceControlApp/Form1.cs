@@ -65,7 +65,7 @@ namespace SportLotoServiceControlApp
             //Getting results and Change Global Variable
             RemainingTime = ConvertedNumber / 1000;
 
-            return RemainingTime;
+            return ConvertedNumber;
         }
 
         private int FromSecToMin()
