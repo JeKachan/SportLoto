@@ -26,7 +26,14 @@ namespace SportLotoService
         {
             SqlCode Sql_Command = new SqlCode();
 
-            Sql_Command.DateChecker();
+            //Current Session Close
+            Sql_Command.SqlNewUpdate();
+
+            //Get winners of current session
+            Sql_Command.GetWiners();
+
+            //Start New One
+            Sql_Command.SqlNewInsert();
 
         }
 
