@@ -9,6 +9,7 @@ using System.Web.Routing;
 using System.Linq;
 using System;
 using System.Web;
+using SportLoto.DbModels.Data;
 
 namespace SportLoto.Controllers
 {
@@ -98,7 +99,7 @@ namespace SportLoto.Controllers
         public async Task<ActionResult> PayTicket()
         {
             var tickets = await repository.GetNotPayedTicketsAsync(CurrentUser.Id);
-            var ticketPrice = 20m;
+            var ticketPrice = SportLotoSettings.TicketPrice;
             var transtaction = new Transaction()
             {
                 Amount = ticketPrice,
@@ -108,21 +109,21 @@ namespace SportLoto.Controllers
                 DrawingId = CurrentDrawing.Id,
                 Confirmed = false,
             };
-            var createTransactionResult = await repository.CreateTransactionAsync(transtaction);
-            if (createTransactionResult)
-            {
-                return RedirectToAction("Success", new SuccessViewModel
-                {
-                    transaction_id = transtaction.Id,
-                    first_name = CurrentUser.UserName,
-                    last_name = CurrentUser.Surname,
-                    payment_status = "Completed",
-                    payer_email = CurrentUser.Email,
-                    payment_gross = transtaction.ItemTotal,
-                    mc_currency = "USD",
-                    custom = $"transactioId={transtaction.Id}&ticketsId={String.Join(",", tickets.Select(x => x.Id))}"
-                });
-            }
+            //var createTransactionResult = await repository.CreateTransactionAsync(transtaction);
+            //if (createTransactionResult)
+            //{
+            //    return RedirectToAction("Success", new SuccessViewModel
+            //    {
+            //        transaction_id = transtaction.Id,
+            //        first_name = CurrentUser.UserName,
+            //        last_name = CurrentUser.Surname,
+            //        payment_status = "Completed",
+            //        payer_email = CurrentUser.Email,
+            //        payment_gross = transtaction.ItemTotal,
+            //        mc_currency = "USD",
+            //        custom = $"transactioId={transtaction.Id}&ticketsId={String.Join(",", tickets.Select(x => x.Id))}"
+            //    });
+            //}
             return RedirectToAction("Index");
         }
         #endregion

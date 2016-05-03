@@ -1,4 +1,5 @@
 ﻿using SportLoto.DbModels;
+using SportLoto.DbModels.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -94,7 +95,7 @@ namespace SportLotoService
         public string GenRandom()
         {
             var winNoLst = new List<int>();
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < SportLotoSettings.DigitsNoInTicket; i++)
             {
                 System.Threading.Thread.Sleep(1000);
                 int randomNumber = RandomNo.Next(0, 46);
@@ -169,7 +170,7 @@ namespace SportLotoService
             {
                 var drawing = db.Drawings.Where(x => x.IsCompleted == false).FirstOrDefault();
                 var winners = drawing.Tickets
-                    .Where(x => MatchCount(x, drawing.WinNo) == 6)
+                    .Where(x => MatchCount(x, drawing.WinNo) == SportLotoSettings.JackpotNoCount)
                     .Select(x => new WinnersData
                     {
                         ApplicationUserId = x.ApplicationUserId,

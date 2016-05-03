@@ -56,6 +56,12 @@ namespace SportLoto.Repositories
         public async Task<List<Ticket>> GetTicketsByIdsAsync(IEnumerable<int> ids) =>
             await db.Tickets.Where(x => ids.Contains(x.Id)).ToListAsync();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="drawingId"></param>
+        /// <returns></returns>
         public async Task<List<Ticket>> GetTicketsByUserDrawingIdsAsync(string userId, int drawingId) =>
             await db.Tickets.Where(x => x.ApplicationUserId == userId && x.DrawingId == drawingId).ToListAsync();
                 

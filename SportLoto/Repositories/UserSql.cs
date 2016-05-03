@@ -9,6 +9,11 @@ namespace SportLoto.Repositories
     {
         public IQueryable<ApplicationUser> Users => db.Users.AsQueryable();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<ApplicationUser> FindUserAsync(string id) =>
             await db.Users.FirstAsync(x => x.Id == id);
 

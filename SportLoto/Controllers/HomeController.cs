@@ -24,5 +24,15 @@ namespace SportLoto.Controllers
 
             return View();
         }
+
+        public ActionResult Success()
+        {
+            return Content("OK.");
+        }
+
+        public ActionResult IPN()
+        {
+            return Content("Ok.");
+        }
     }
 }
