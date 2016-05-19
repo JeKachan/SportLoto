@@ -5,22 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    @*<link rel="stylesheet" href="~/Content/style.css">*@
+    <link rel="stylesheet" href="~/Content/css/style.css">
+    <link rel="stylesheet" href="~/Content/font-awesome.css">
 
 </head>
 <body>
-    @Html.Partial("_NavBar")
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>@DateTime.Now.Year @*Bro & Bro*@ Some cpmpany name.</p>
-        </footer>
-    </div>
+    @Html.Partial("_Header")
+    @RenderBody()
+
+    @Html.Partial("_Footer")
+    <!--</center>-->
+    @*<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>*@
+    
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     <script src="~/Scripts/lodash.min.js"></script>
+    <script src="~/Scripts/home/home-index.js"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

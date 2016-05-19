@@ -1,0 +1,164 @@
+h1,h2,h3,h4,h5,h6,p,a,body {
+    margin: 0;
+    padding: 0;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: none;
+}
+.fix {
+    background: #000;
+    border: 0px;
+    border-radius: 0px;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+}
+.navbar-nav li a {
+    color: #fff !important;
+}
+#giris .btn-primary {
+    background-color: #000 !important;
+}
+.icon-external-link,
+.icon-dashboard,
+.icon-map-marker,
+.icon-tasks {
+    font-size: 100px;
+    color: #CCC;
+}
+.icon-external-link:hover,
+.icon-dashboard:hover,
+.icon-map-marker:hover,
+.icon-tasks:hover {
+    color: #CD2122;
+    -o-transition: color .2s ease-out, background 2s ease-in;
+    -ms-transition: color .2s ease-out, background 2s ease-in;
+    -moz-transition: color .2s ease-out, background 2s ease-in;
+    -webkit-transition: color .2s ease-out, background 2s ease-in;
+}
+.simge {
+    margin-top: 40px;
+}
+body {
+    background: url("../images/resim.jpg");
+}
+.simge-h1 {
+    padding-bottom: 20px;
+    color: #CCC;
+}
+#giris {
+    border: 0px !important;
+}
+.simge h3 {
+    color: #fff;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.orta {
+    background-color: #000;
+    min-height: 50px;
+    color: #CCC;
+    margin-top: 30px;
+    margin-bottom: 2px;
+}
+.orta center {
+    margin-top: 10px;
+    font-size: 20px;
+}
+.simge p {
+    color: white;
+}
+.navdefault {
+    border: none !important;
+    margin-bottom: 0px !important;
+}
+.footer {
+    min-height: 255px;
+    background-color: #000;
+    margin-top: 50px;
+}
+.menudiv a {
+    float: left;
+    color: #CCC !important;
+}
+.nav>li>a:focus,
+.nav>li>a:hover {
+    background: none !important;
+    text-decoration: underline;
+}
+.footer h3 {
+    padding-bottom: 20px;
+    padding-left: 30px;
+}
+.footer-sag,
+.footer-sol {
+    padding-top: 50px;
+    padding-left: 30px;
+    font-size: 15px;
+    color: #d5d5d5;
+}
+.copy {
+    background: #131212;
+    height: 50px;
+}
+.logo {
+    /*background: ;*/
+    margin-left: 0px !important;
+    height: 105px;
+}
+.logo img {
+    /*width: 200px;*/
+    margin-top: 8px;
+}
+.menudiv {
+    margin-top: 23px;
+    font-size: 17px;
+}
+.ustmenu ul li a {
+    color: #555 !important;
+}
+.ustmenu.active>a {
+    background-color: transparent !important;
+}
+.menu li {
+    list-style: none;
+    padding-left: 20px;
+}
+.jack {
+    margin-top: 25px;
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+.jackpot {
+    background-color: #CD2122;
+    height: 149px;
+    border-bottom: 2px solid white;
+}
+.jackbaslik {
+    border-bottom: 3px solid #941414;
+}
+.jackpot h4 {
+    color: white;
+    font-size: 20px;
+    padding: 15px 0px;
+    font-weight: 600;
+    text-align: center;
+}
+.jacksayisi {
+    font-size: 55px;
+    text-align: center;
+    color: white;
+    margin-top: 5px;
+    border-bottom: 2px solid white;
+}
+@media (max-width: 420px) {
+    .orta center {
+        margin-top: 10px;
+        font-size: 18px;
+    }
+}
+
