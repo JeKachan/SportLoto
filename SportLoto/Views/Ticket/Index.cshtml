@@ -4,7 +4,7 @@
     var action = ViewContext.RouteData.Values["action"].ToString();
     if (action.ToLower() == "index")
     {
-        ViewBag.Title = "Index";
+        ViewBag.Title = "Active tickets";
     }
     else if (action.ToLower() == "purchasedtickets")
     {
@@ -12,43 +12,40 @@
     }
 }
 
-<h2>Ticket Page</h2>
-
-@if (action.ToLower() == "index")
-{
-    <a href="@Url.Action("PurchasedTickets", "Ticket")" class="btn btn-default">Purchased tickets</a>
-}
-else if (action.ToLower() == "purchasedtickets")
-{
-    <a href="@Url.Action("Index", "Ticket")" class="btn btn-default">Not buyed tickets</a>
-}
-
-
-@if (Model.Tickets.Count > 0)
-{
-    <div class="tickets clearfix">
-        @for (var i = 0; i < Model.Tickets.Count; i++)
+<div class="container main">
+    <div class="row ">
+        <h2>@ViewBag.Title</h2>
+       
+        @if (Model.Tickets.Count > 0)
         {
-            var ticket = Model.Tickets[i];
-            <div class="ticket">
-                <div class="ricket-description">
-                    Ticket #@(i + 1), <br>
-                    Created: @ticket.CreateDate.ToString("dd.MM.yyyy HH:mm")
-                </div>
-                @foreach (var section in Model.GetTicketNo(ticket))
+            <div class="tickets clearfix">
+                @for (var i = 0; i < Model.Tickets.Count; i++)
                 {
-                    <div class="section">
-                        @foreach (var cell in section)
+                    var ticket = Model.Tickets[i];
+                    <div class="ticket">
+                        <div class="ricket-description">
+                            Ticket #@(i + 1), <br>
+                            Created: @ticket.CreateDate.ToString("dd.MM.yyyy HH:mm")
+                        </div>
+                        @foreach (var section in Model.GetTicketNo(ticket))
                         {
-                            <span>@cell </span>
+                            <div class="section">
+                                @foreach (var cell in section)
+                        {
+                                    <span>@cell </span>
+                                }
+                            </div>
                         }
                     </div>
                 }
+                <div class="clearfix"></div>
             </div>
+            <a href="@Url.Action("PayTicket", "Ticket")" class="btn btn-success">Pay tickets</a>
+            <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
         }
-        <div class="clearfix"></div>
+        else
+        {
+            <div class="h3">No tickets here.</div>
+        }
     </div>
-    <a href="@Url.Action("PayTicket", "Ticket")" class="btn btn-success">Pay tickets</a>
-   
-}
-<a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
+</div>
