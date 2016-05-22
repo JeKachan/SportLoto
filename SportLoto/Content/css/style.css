@@ -9,6 +9,7 @@ a,
 body {
   margin: 0;
   padding: 0;
+  color: #EBEBEB;
 }
 a {
   text-decoration: none;
@@ -36,19 +37,27 @@ a:hover {
 .icon-external-link,
 .icon-dashboard,
 .icon-map-marker,
-.icon-tasks {
+.icon-tasks,
+.icon-money,
+.icon-thumbs-up,
+.icon-usd,
+.icon-long-arrow-up {
   color: #cccccc;
   font-size: 100px;
 }
 .icon-external-link:hover,
 .icon-dashboard:hover,
 .icon-map-marker:hover,
-.icon-tasks:hover {
+.icon-tasks:hover,
+.icon-money:hover,
+.icon-thumbs-up:hover,
+.icon-usd:hover,
+.icon-long-arrow-up:hover {
   -moz-transition: color 0.2s ease-out, background 2s ease-in;
   -ms-transition: color 0.2s ease-out, background 2s ease-in;
   -o-transition: color 0.2s ease-out, background 2s ease-in;
   -webkit-transition: color 0.2s ease-out, background 2s ease-in;
-  color: #cd2122;
+  color: rgba(170, 17, 17, 0.5);
 }
 .simge {
   margin-top: 40px;
@@ -88,7 +97,7 @@ body {
   margin-bottom: 0px !important;
 }
 .footer {
-  background-color: #000000;
+  background-color: rgba(170, 17, 17, 0.5);
   margin-top: 50px;
   min-height: 255px;
 }
@@ -113,13 +122,13 @@ body {
   text-decoration: underline;
 }
 .footer-sag {
-  color: #d5d5d5;
+  color: #EBEBEB;
   font-size: 15px;
   padding-left: 30px;
   padding-top: 50px;
 }
 .footer-sol {
-  color: #d5d5d5;
+  color: #EBEBEB;
   font-size: 15px;
   padding-left: 30px;
   padding-top: 50px;
@@ -152,12 +161,12 @@ body {
   margin-top: 25px;
 }
 .jackpot {
-  background-color: #cd2122;
-  border-bottom: 2px solid white;
+  background-color: rgba(170, 17, 17, 0.5);
+  border-bottom: 2px solid rgba(170, 17, 17, 0);
   height: 149px;
 }
 .jackpot h4 {
-  color: white;
+  color: #EBEBEB;
   font-size: 20px;
   font-weight: 600;
   padding: 15px 0px;
@@ -167,7 +176,7 @@ body {
   border-bottom: 3px solid #941414;
 }
 .jacksayisi {
-  border-bottom: 2px solid white;
+  border-bottom: 2px solid rgba(170, 17, 17, 0);
   color: white;
   font-size: 55px;
   margin-top: 5px;

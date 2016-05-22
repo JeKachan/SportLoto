@@ -1,9 +1,11 @@
 ﻿// Color variables (appears count calculates by raw css)
-@color0: #000000; // Appears 4 times
-@color1: #cccccc; // Appears 4 times
-@color2: #d5d5d5; // Appears 2 times
-@color3: #cd2122; // Appears 2 times
-@color4: #ffffff; // Appears 2 times
+
+@color0: #000000; // Appears 4 times BLACK
+@color1: #cccccc; // Appears 4 times GRAY
+@color2: #EBEBEB; // Appears 2 times SOFTER GRAY
+@color3: rgba(170, 17, 17, 0.5); // Appears 2 times RED
+@color4: #ffffff; // Appears 2 times WHITE
+@color5: rgba(170, 17, 17, 0); // lines on JACKPOT amount
 
 
 // Height variables (appears count calculates by raw css)
@@ -12,6 +14,7 @@
 h1,h2,h3,h4,h5,h6,p,a,body  {
 	margin: 0;
 	padding: 0;
+    color: @color2;
 }
 a {
 	text-decoration: none;
@@ -40,11 +43,11 @@ a {
 		background-color: @color0 !important;
 	}
 }
-.icon-external-link, .icon-dashboard, .icon-map-marker, .icon-tasks  {
+.icon-external-link, .icon-dashboard, .icon-map-marker, .icon-tasks, .icon-money, .icon-thumbs-up, .icon-usd, .icon-long-arrow-up {
 	color: @color1;
 	font-size: 100px;
 }
-.icon-external-link:hover, .icon-dashboard:hover, .icon-map-marker:hover, .icon-tasks:hover  {
+.icon-external-link:hover, .icon-dashboard:hover, .icon-map-marker:hover, .icon-tasks:hover, .icon-money:hover, .icon-thumbs-up:hover, .icon-usd:hover, .icon-long-arrow-up:hover {
 	-moz-transition: color .2s ease-out, background 2s ease-in;
 	-ms-transition: color .2s ease-out, background 2s ease-in;
 	-o-transition: color .2s ease-out, background 2s ease-in;
@@ -88,7 +91,7 @@ body {
 	margin-bottom: 0px !important;
 }
 .footer {
-	background-color: @color0;
+	background-color: @color3;
 	margin-top: 50px;
 	min-height: 255px;
 	h3 {
@@ -163,10 +166,10 @@ body {
 }
 .jackpot {
 	background-color: @color3;
-	border-bottom: 2px solid white;
+	border-bottom: 2px solid @color5;
 	height: 149px;
 	h4 {
-		color: white;
+		color: @color2;
 		font-size: 20px;
 		font-weight: 600;
 		padding: 15px 0px;
@@ -177,7 +180,7 @@ body {
 	border-bottom: 3px solid #941414;
 }
 .jacksayisi {
-	border-bottom: 2px solid white;
+	border-bottom: 2px solid @color5;
 	color: white;
 	font-size: 55px;
 	margin-top: 5px;
