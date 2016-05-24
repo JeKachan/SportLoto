@@ -21,7 +21,15 @@ namespace SportLoto.DbModels
 
         public virtual ICollection<Ticket> Tickets { get; set; }
 
+        public virtual ICollection<Transaction> Transactions { get; set; }
+
         [Description("Розыгрыш уже окончен")]
         public bool IsCompleted { get; set; }
+
+        public decimal ToJackpotSum { get; set; }
+
+        public decimal ToWinnersSum { get; set; }
+
+        public decimal ToOwnerSum { get; set; }
     }
 }

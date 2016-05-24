@@ -41,10 +41,12 @@
                 <div class="clearfix"></div>
             </div>
             <a href="@Url.Action("PayTicket", "Ticket")" class="btn btn-success">Pay tickets</a>
-            <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create ticket</a>
+            <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create new ticket</a>
+
         }
         else
         {
+            <a href="@Url.Action("CreateTicket", "Ticket")" class="btn btn-default">Create new ticket</a>
             <div class="h3">No tickets here.</div>
         }
     </div>

@@ -20,5 +20,7 @@ namespace SportLoto.DbModels
         public virtual Ticket Ticket { get; set; }
 
         public bool PaymentMade { get; set; }
+
+        public byte NumberMatchCount { get; set; }
     }
 }

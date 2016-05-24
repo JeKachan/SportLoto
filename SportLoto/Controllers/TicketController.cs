@@ -9,7 +9,6 @@ using System.Web.Routing;
 using System.Linq;
 using System;
 using System.Web;
-using SportLoto.DbModels.Data;
 
 namespace SportLoto.Controllers
 {
@@ -37,7 +36,6 @@ namespace SportLoto.Controllers
             return View(model);
         }
 
-        
 
         [HttpGet]
         public ActionResult CreateTicket()
@@ -70,7 +68,7 @@ namespace SportLoto.Controllers
             return Json(resultJson);
         }
 
-        public async Task<ActionResult> Success(SuccessViewModel model)
+        public async Task<ActionResult> SuccessPayPal(SuccessViewModel model)
         {
             var param = HttpUtility.ParseQueryString(model.custom);
             var ticketsId = param["ticketsId"].Split(',').Select(x => Int32.Parse(x)).ToList();
@@ -99,7 +97,7 @@ namespace SportLoto.Controllers
         public async Task<ActionResult> PayTicket()
         {
             var tickets = await repository.GetNotPayedTicketsAsync(CurrentUser.Id);
-            var ticketPrice = SportLotoSettings.TicketPrice;
+            var ticketPrice = repository.Settings.TicketPrice;
             var transtaction = new Transaction()
             {
                 Amount = ticketPrice,
@@ -112,7 +110,7 @@ namespace SportLoto.Controllers
             //var createTransactionResult = await repository.CreateTransactionAsync(transtaction);
             //if (createTransactionResult)
             //{
-            //    return RedirectToAction("Success", new SuccessViewModel
+            //    return RedirectToAction("SuccessPayPal", new SuccessViewModel
             //    {
             //        transaction_id = transtaction.Id,
             //        first_name = CurrentUser.UserName,
@@ -135,6 +133,14 @@ namespace SportLoto.Controllers
             {
                 model.Tickets = await repository.GetTicketsByUserDrawingIdsAsync(CurrentUser.Id, CurrentDrawing.Id);
             }
+            return View("Index", model);
+        }
+
+        public async Task<ActionResult> WinningTickets()
+        {
+            var model = new IndexTicketViewModel();
+            model.Tickets = await repository.GetWinnerTiketsByUserId(User.Identity.GetUserId());
+            ViewBag.Title = "Winning tickets";
             return View("Index", model);
         }
     }

@@ -16,7 +16,6 @@ namespace SportLoto.Controllers
         public ApplicationController()
         {
             repository = new SqlRepository();
-           
         }
 
         public ApplicationController(ISqlRepository _repository)

@@ -252,6 +252,22 @@
     <Compile Include="Migrations\201604211900578_AddWinnersData.Designer.cs">
       <DependentUpon>201604211900578_AddWinnersData.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605220924338_AddMainFond.cs" />
+    <Compile Include="Migrations\201605220924338_AddMainFond.Designer.cs">
+      <DependentUpon>201605220924338_AddMainFond.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605220952317_AddSettings.cs" />
+    <Compile Include="Migrations\201605220952317_AddSettings.Designer.cs">
+      <DependentUpon>201605220952317_AddSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605221048143_ChangesInSettings.cs" />
+    <Compile Include="Migrations\201605221048143_ChangesInSettings.Designer.cs">
+      <DependentUpon>201605221048143_ChangesInSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201605221051479_RequireDrawingIdInMainFond.cs" />
+    <Compile Include="Migrations\201605221051479_RequireDrawingIdInMainFond.Designer.cs">
+      <DependentUpon>201605221051479_RequireDrawingIdInMainFond.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\EmailViewModels.cs" />
@@ -1202,6 +1218,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604211900578_AddWinnersData.resx">
       <DependentUpon>201604211900578_AddWinnersData.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605220924338_AddMainFond.resx">
+      <DependentUpon>201605220924338_AddMainFond.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605220952317_AddSettings.resx">
+      <DependentUpon>201605220952317_AddSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605221048143_ChangesInSettings.resx">
+      <DependentUpon>201605221048143_ChangesInSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605221051479_RequireDrawingIdInMainFond.resx">
+      <DependentUpon>201605221051479_RequireDrawingIdInMainFond.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
