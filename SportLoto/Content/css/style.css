@@ -113,6 +113,10 @@ body {
   color: #cccccc !important;
   float: left;
 }
+.menudiv .navbar {
+  /*float:right;
+        width: 100%;*/
+}
 .nav > li > a:focus {
   background: none !important;
   text-decoration: underline;
@@ -284,8 +288,4 @@ textarea {
   font-size: 16px;
   text-align: center;
   width: 25px;
-}
-.menudiv .navbar {
-  /*float:right;
-        width: 100%;*/
 }
