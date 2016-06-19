@@ -1,5 +1,4 @@
 ﻿using SportLoto.DbModels;
-using SportLoto.DbModels.Data;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -13,6 +12,22 @@ namespace SportLotoService
     {
         ApplicationDbContext db;
         Random RandomNo = new Random();
+
+        Setting _settings;
+        protected Setting Settings
+        {
+            get
+            {
+                if (_settings == null)
+                {
+                    using (var db = new ApplicationDbContext())
+                    {
+                        _settings = db.Settings.FirstOrDefault();
+                    }
+                }
+                return _settings;
+            }
+        }
 
 
         //SQL Connection
@@ -50,22 +65,57 @@ namespace SportLotoService
         //Update Drawing
         public int SqlNewUpdate()
         {
-            SqlCommand getCommand = new SqlCommand("UPDATE Drawings SET WinNo=@WinNo WHERE WinNo='0'", OpenSqlConnection());
-            getCommand.Parameters.AddWithValue("@WinNo", GenRandom());
-            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
+            var executedLines = 0;
+            using (var db = new ApplicationDbContext())
+            {
+                var drawing = db.Drawings.FirstOrDefault(x => x.WinNo == "0");
+                var totalDrawingSum = drawing.Transactions.Sum(x => x.ItemTotal);
+                
+                var jackpotMainFondSum = db.MainFonds.Sum(x => x.Drawing.ToJackpotSum);
+                var enableJackPot = Settings.OwnerFond < jackpotMainFondSum + drawing.ToJackpotSum;
 
-            int ExecutedLines = 0;
-            try
-            {
-                if (OpenSqlConnection().State == ConnectionState.Closed)
-                    getCommand.Connection.Open();
-                ExecutedLines = getCommand.ExecuteNonQuery();
+                var winNo = "";
+                if (!enableJackPot)
+                {
+                    while (true)
+                    {
+                        winNo = GenRandom();
+                        var jackpotWinCount = drawing.Tickets.Count(x => MatchCount(x, winNo) == Settings.DigitsNoInTicket);
+                        if (jackpotWinCount == 0)
+                        {
+                            break;
+                        }
+                    } 
+                }
+                else
+                {
+                    winNo = GenRandom();
+                }
+
+                drawing.ToJackpotSum = totalDrawingSum * Settings.JackpotPart;
+                drawing.ToOwnerSum = totalDrawingSum * Settings.OwnerPart;
+                drawing.ToWinnersSum = totalDrawingSum * Settings.WinnersPart;
+                drawing.WinNo = winNo;
+                drawing.EndDate = DateTime.Today;
+
+                var mainFond = new MainFond();
+                var jackpotWinTikets = drawing.Tickets.Where(x => MatchCount(x, winNo) == Settings.DigitsNoInTicket);
+                if (jackpotWinTikets.Count() > 0)
+                {
+                    mainFond.IncrementSum = -1 * (jackpotMainFondSum + drawing.ToJackpotSum);
+                }
+                else
+                {
+                    mainFond.IncrementSum = drawing.ToJackpotSum;
+                }
+                mainFond.DateCreate = DateTime.Today;
+                mainFond.DrawingId = drawing.Id;
+                db.MainFonds.Add(mainFond);
+                db.SaveChanges();
+
+                executedLines = db.SaveChanges();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            return ExecutedLines;
+            return executedLines;
         }
 
         //Last Update For Driwings session
@@ -95,7 +145,7 @@ namespace SportLotoService
         public string GenRandom()
         {
             var winNoLst = new List<int>();
-            for (int i = 0; i < SportLotoSettings.DigitsNoInTicket; i++)
+            for (int i = 0; i < Settings.DigitsNoInTicket; i++)
             {
                 System.Threading.Thread.Sleep(1000);
                 int randomNumber = RandomNo.Next(0, 46);
@@ -105,37 +155,6 @@ namespace SportLotoService
             return new JavaScriptSerializer().Serialize(winNoLst);
         }
 
-
-        //DateChecker - Update and insert data automatically when the day comes
-        public void DateChecker()
-        {
-            SqlCommand getCommand = new SqlCommand("SELECT * from Drawings WHERE EndDate=@EndDate and WinNo='0'", OpenSqlConnection());
-            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
-            SqlDataReader rd = null;
-            try
-            {
-                if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
-                    getCommand.Connection.Open();
-                rd = getCommand.ExecuteReader();
-
-                if (rd.HasRows)
-                {
-                    while (rd.Read())
-                    {
-                        SqlNewUpdate();
-                        SqlNewInsert();
-                    }
-
-                }
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
-
-        }
 
         public void FirstRun()
         {
@@ -163,54 +182,27 @@ namespace SportLotoService
 
 
         //Get Winners
-        //NEED TO BE CHANGED!!
         public void SetWiners()
         {
             using (db = new ApplicationDbContext())
             {
                 var drawing = db.Drawings.Where(x => x.IsCompleted == false).FirstOrDefault();
-                var winners = drawing.Tickets
-                    .Where(x => MatchCount(x, drawing.WinNo) == SportLotoSettings.JackpotNoCount)
-                    .Select(x => new WinnersData
-                    {
-                        ApplicationUserId = x.ApplicationUserId,
-                        TicketId = x.Id,
-                        DrawingId = drawing.Id
-                    }).ToList();
+                
+                var winners = (from x in drawing.Tickets
+                               let matchCount = MatchCount(x, drawing.WinNo)
+                               where matchCount == Settings.DigitsNoInTicket || matchCount == 5 || matchCount == 4
+                               select new WinnersData
+                               {
+                                   ApplicationUserId = x.ApplicationUserId,
+                                   TicketId = x.Id,
+                                   DrawingId = drawing.Id,
+                                   NumberMatchCount = (byte) matchCount
+                               }).ToList();
 
                 db.WinnersData.AddRange(winners);
                 db.SaveChanges();
                 DrawingsSessionClose();
             }
-
-            //SqlCommand getCommand = new SqlCommand("SELECT T.ApplicationUserId, T.Id as TicketId, D.Id as DrawingId from Drawings as D JOIN Tickets as T on D.Id = T.DrawingId where D.IsCompleted = '0' and D.WinNo = T.TicketNo ", OpenSqlConnection());
-            //SqlDataReader rd = null;
-            //WinnersData winner = new WinnersData();
-            //try
-            //{
-            //    if (OpenSqlConnection().State == System.Data.ConnectionState.Closed)
-            //        getCommand.Connection.Open();
-            //    rd = getCommand.ExecuteReader();
-
-            //    if (rd.HasRows)
-            //    {
-            //        while (rd.Read())
-            //        {
-            //            winner.ApplicationUserId = rd["ApplicationUserId"].ToString();
-            //            winner.DrawingId = Convert.ToInt32(rd["DrawingId"]);
-            //            winner.TicketId = Convert.ToInt32(rd["TicketId"]);
-            //            winner.PaymentMade = false;
-
-            //            InsertWinners(winner);
-            //        }
-            //    }
-
-            //    DrawingsSessionClose();
-            //}
-            //catch (Exception)
-            //{
-            //    throw;
-            //}
         }
 
         public int MatchCount(Ticket ticket, string _winNo)

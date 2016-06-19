@@ -19,6 +19,8 @@ namespace SportLoto.DbModels
         public DbSet<Drawing> Drawings { get; set; }
         public DbSet<Transaction> Transactions { get; set; }
         public DbSet<WinnersData> WinnersData { get; set; }
+        public DbSet<MainFond> MainFonds { get; set; }
+        public DbSet<Setting> Settings { get; set; }
 
     }
 }

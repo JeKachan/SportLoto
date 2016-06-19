@@ -1,4 +1,5 @@
 ﻿using SportLoto.DbModels;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace SportLoto.Repositories
@@ -12,7 +13,18 @@ namespace SportLoto.Repositories
             db = new ApplicationDbContext();
         }
 
-        public async Task<bool> SaveChangesAsync() => await db.SaveChangesAsync() > 0; 
+        public async Task<bool> SaveChangesAsync() => await db.SaveChangesAsync() > 0;
+
+        Setting _settings;
+        public Setting Settings
+        {
+            get
+            {
+                _settings = _settings ?? db.Settings.FirstOrDefault();
+                return _settings;
+            }
+        }
+
 
         #region IDisposable Support
 

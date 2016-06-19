@@ -16,6 +16,7 @@ namespace SportLoto.Repositories
         Task<List<Ticket>> GetNotPayedTicketsAsync(string userId);
         Task<List<Ticket>> GetTicketsByIdsAsync(IEnumerable<int> ids);
         Task<List<Ticket>> GetTicketsByUserDrawingIdsAsync(string userId, int drawingId);
+        Task<List<Ticket>> GetWinnerTiketsByUserId(string userId);
         #endregion
 
         #region Drawing
@@ -36,6 +37,11 @@ namespace SportLoto.Repositories
         IQueryable<Transaction> Transactions { get; }
         Task<bool> CreateTransactionAsync(Transaction instance);
         Task<Transaction> GetTransactionByIdAsync(int id);
+        #endregion
+
+        #region settings
+
+        Setting Settings { get; }
         #endregion
     }
 }

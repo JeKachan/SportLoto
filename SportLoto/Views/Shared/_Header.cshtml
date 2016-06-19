@@ -96,20 +96,14 @@
                                         <a href="#" class="">My Cart </a>
                                     </li>
                                     <li id="menu-item-5619" class="menu-item " data-dropdown="dropdown">
-                                        <a href="#" class="dropdown-toggle">My Winning Tickets</a>
+                                        <a href="@Url.Action("WinningTickets", "Ticket")" class="dropdown-toggle">My Winning Tickets</a>
                                     </li>
-                                    @if (controller.ToLower() != "ticket" || action.ToLower() != "index")
-                                    {
-                                        <li id="menu-item-5664" class="menu-item " data-dropdown="dropdown">
-                                            <a href="@Url.Action("Index", "Ticket")" class="dropdown-toggle">Active Tickets </a>
-                                        </li>
-                                    }
-                                    @if (controller.ToLower() != "ticket" || action.ToLower() != "purchasedtickets")
-                                    {
-                                        <li id="menu-item-5439" class="menu-item ">
-                                            <a href="@Url.Action("PurchasedTickets", "Ticket")">Purchased tickets</a>
-                                        </li>
-                                    }
+                                    <li id="menu-item-5664" class="menu-item " data-dropdown="dropdown">
+                                        <a href="@Url.Action("Index", "Ticket")" class="dropdown-toggle">Active Tickets </a>
+                                    </li>
+                                    <li id="menu-item-5439" class="menu-item ">
+                                        <a href="@Url.Action("PurchasedTickets", "Ticket")">Purchased tickets</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>

@@ -64,6 +64,13 @@ namespace SportLoto.Repositories
         /// <returns></returns>
         public async Task<List<Ticket>> GetTicketsByUserDrawingIdsAsync(string userId, int drawingId) =>
             await db.Tickets.Where(x => x.ApplicationUserId == userId && x.DrawingId == drawingId).ToListAsync();
-                
+
+
+        public async Task<List<Ticket>> GetWinnerTiketsByUserId(string userId)
+        {
+            var winnerData = db.WinnersData.Where(x => x.ApplicationUserId == userId);
+            return await winnerData.Select(x => x.Ticket).ToListAsync();
+        }
+
     }
 }

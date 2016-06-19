@@ -1,5 +1,8 @@
-﻿using SportLoto.DbModels;
+﻿using Postal;
+using SportLoto.DbModels;
+using SportLoto.Models;
 using System;
+using System.Net.Mail;
 using System.Threading.Tasks;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -31,5 +34,18 @@ namespace SportLoto.Controllers
             };
             return Content(result);
         }
+
+        public ActionResult TestPostal()
+        {
+            var email = new RegistrationEmail("RegistrationEmail")
+            {
+                To = "jekachan7@gmail.com",
+                UserName = "fri.hsh@gmail.com",
+                From = "fri.hsh@gmail.com"
+            };
+
+            email.Send();
+            return new EmailViewResult(email);
+        }   
     }
 }
