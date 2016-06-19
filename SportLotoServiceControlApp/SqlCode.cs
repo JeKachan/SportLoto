@@ -33,7 +33,7 @@ namespace SportLotoService
         //SQL Connection
         public SqlConnection OpenSqlConnection()
         {
-            SqlConnection conn = new SqlConnection("Server=.\\HOMESQL;Database=SportLoto;User Id=sa;Password=12345;");
+            SqlConnection conn = new SqlConnection("Server=172.16.1.9;Database=JackpotLoto;User Id=sa;Password=info11824;");
             return conn;
         }
 
@@ -41,24 +41,44 @@ namespace SportLotoService
         //insert Drawing
         public int SqlNewInsert()
         {
-            SqlCommand getCommand = new SqlCommand("Insert into Drawings Values(@WinNo, @EndDate, @IsCompleated, @CreateDate)", OpenSqlConnection());
-            getCommand.Parameters.AddWithValue("@WinNo", "0");
-            getCommand.Parameters.AddWithValue("@CreateDate", DateTime.Today);
-            getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
-            getCommand.Parameters.AddWithValue("@IsCompleated", "0");
+            var result = 0;
 
-            int ExecutedLines = 0;
-            try
+            using (var db = new ApplicationDbContext())
             {
-                if (OpenSqlConnection().State == ConnectionState.Closed)
-                    getCommand.Connection.Open();
-                ExecutedLines = getCommand.ExecuteNonQuery();
+                var today = DateTime.Today;
+                var drawing = new Drawing();
+                drawing.WinNo = "0";
+                drawing.CreateDate = today;
+                drawing.EndDate = today;
+                drawing.IsCompleted = false;
+                drawing.ToJackpotSum = 0;
+                drawing.ToOwnerSum = 0;
+                drawing.ToWinnersSum = 0;
+
+                db.Drawings.Add(drawing);
+                result = db.SaveChanges();
+
             }
-            catch (Exception e)
-            {
-                throw;
-            }
-            return ExecutedLines;
+            return result;
+
+            //SqlCommand getCommand = new SqlCommand("Insert into Drawings Values(@WinNo, @EndDate, @IsCompleated, @CreateDate)", OpenSqlConnection());
+            //getCommand.Parameters.AddWithValue("@WinNo", "0");
+            //getCommand.Parameters.AddWithValue("@CreateDate", DateTime.Today);
+            //getCommand.Parameters.AddWithValue("@EndDate", DateTime.Today);
+            //getCommand.Parameters.AddWithValue("@IsCompleated", "0");
+
+            //int ExecutedLines = 0;
+            //try
+            //{
+            //    if (OpenSqlConnection().State == ConnectionState.Closed)
+            //        getCommand.Connection.Open();
+            //    ExecutedLines = getCommand.ExecuteNonQuery();
+            //}
+            //catch (Exception e)
+            //{
+            //    throw;
+            //}
+            //return ExecutedLines;
         }
 
 
@@ -111,7 +131,6 @@ namespace SportLotoService
                 mainFond.DateCreate = DateTime.Today;
                 mainFond.DrawingId = drawing.Id;
                 db.MainFonds.Add(mainFond);
-                db.SaveChanges();
 
                 executedLines = db.SaveChanges();
             }
